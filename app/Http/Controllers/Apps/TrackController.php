@@ -21,9 +21,9 @@ class TrackController extends Controller
         $histories = null;
 
         if($request->has("search")){
-            $result = Http::get("10.194.2.17:3305/content?filter=".$request->search);
+            $result = Http::get("36.93.66.164:3305/content?filter=".$request->search);
 
-            $histories = Http::get("10.194.2.17:3305/content_histories?filter=".$result[0]["id"]."&sortBy=date")->json();
+            $histories = Http::get("36.93.66.164:3305/content_histories?filter=".$result[0]["id"]."&sortBy=date")->json();
 
             // return $histories;
         }
@@ -44,7 +44,7 @@ class TrackController extends Controller
                 "update_type" => "required"
             ]);
     
-            $response = Http::post('10.194.2.17:3305/content_histories', [
+            $response = Http::post('36.93.66.164:3305/content_histories', [
                 "update_message" => $validatedData["update_message"],
                 "date" => $validatedData["date"],
                 "content_id" => $validatedData["content_id"],
@@ -61,7 +61,7 @@ class TrackController extends Controller
 
             // return $validatedData;
 
-            $update = Http::put('10.194.2.17:3305/content/'.$validatedData["content_id"], [
+            $update = Http::put('36.93.66.164:3305/content/'.$validatedData["content_id"], [
                 "resolved_time" => $validatedData["resolved_time"],
                 "resolved_by" => $validatedData["resolved_by"],
                 "reason" => $validatedData["reason"],
@@ -70,7 +70,7 @@ class TrackController extends Controller
             // return $update;
 
             if($update["message"] == "success"){
-                $response = Http::post('10.194.2.17:3305/content_histories', [
+                $response = Http::post('36.93.66.164:3305/content_histories', [
                     "update_message" => $validatedData["reason"],
                     "date" => $validatedData["resolved_time"],
                     "content_id" => $validatedData["content_id"],

@@ -43,7 +43,7 @@ class BugsController extends Controller
 
         $validatedData["reference_code"] = Str::random(8); 
 
-        $response = Http::post('36.93.66.164:3305/content', [
+        $response = Http::post('10.194.2.17:3305/content', [
             "start_date" => $validatedData["start_date"],
             "service" => $validatedData["service"],
             "platform" => $validatedData["platform"],

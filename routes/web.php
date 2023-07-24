@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::resource("/", BugsController::class);
 Route::resource("/track", TrackController::class);
 
+Route::get("/get-pic", [TrackController::class, "getPic"]);
+Route::get("/get-services/{id}", [TrackController::class, "getServices"]);
 // Route::get('/track', function () {
 //     return view('apps.track');
 // });

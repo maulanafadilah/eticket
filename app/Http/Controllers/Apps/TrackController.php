@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use GuzzleHttp\RetryMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use ReturnTypeWillChange;
 
 class TrackController extends Controller
 {
@@ -19,16 +20,30 @@ class TrackController extends Controller
 
         $result = null;
         $histories = null;
+        $ticket_list = null;
+        $pic = null;
 
-        if($request->has("search")){
-            $result = Http::get("36.93.66.164:3305/content?filter=".$request->search);
+        switch($request){
+            case $request->has("search"):
+                $result = Http::get("10.194.2.17:3305/content?reference_code=".$request->search);
+                $histories = Http::get("10.194.2.17:3305/content_histories?filter=".$result[0]["id"]."&sortBy=date")->json();
+                break;
+            case $request->has("pic") && $request->has("service"):
+                $ticket_list = Http::get("10.194.2.17:3305/content?content?pic=".$request->pic."&service=".$request->service);
+                $ticket_list = $ticket_list->json($key = null, $default = null);
 
-            $histories = Http::get("36.93.66.164:3305/content_histories?filter=".$result[0]["id"]."&sortBy=date")->json();
-
-            // return $histories;
+                $pic = Http::get("10.194.2.17:3305/content?groupBy=pic");
+                $pic = $pic->json($key = null, $default = null);
+                break;
         }
+        
+        // if($request->has("search")){
+        //     $result = Http::get("10.194.2.17:3305/content?filter=".$request->search);
 
-        return view("apps/track", compact("page_title", "page_description", "result", "histories"), ["search" => $request->search]);
+        //     $histories = Http::get("10.194.2.17:3305/content_histories?filter=".$result[0]["id"]."&sortBy=date")->json();
+        // }
+
+        return view("apps/track", compact("page_title", "page_description", "result", "histories", "ticket_list", "pic"), ["search" => $request->search]);
     }
 
     /**
@@ -44,7 +59,7 @@ class TrackController extends Controller
                 "update_type" => "required"
             ]);
     
-            $response = Http::post('36.93.66.164:3305/content_histories', [
+            $response = Http::post('10.194.2.17:3305/content_histories', [
                 "update_message" => $validatedData["update_message"],
                 "date" => $validatedData["date"],
                 "content_id" => $validatedData["content_id"],
@@ -61,7 +76,7 @@ class TrackController extends Controller
 
             // return $validatedData;
 
-            $update = Http::put('36.93.66.164:3305/content/'.$validatedData["content_id"], [
+            $update = Http::put('10.194.2.17:3305/content/'.$validatedData["content_id"], [
                 "resolved_time" => $validatedData["resolved_time"],
                 "resolved_by" => $validatedData["resolved_by"],
                 "reason" => $validatedData["reason"],
@@ -70,7 +85,7 @@ class TrackController extends Controller
             // return $update;
 
             if($update["message"] == "success"){
-                $response = Http::post('36.93.66.164:3305/content_histories', [
+                $response = Http::post('10.194.2.17:3305/content_histories', [
                     "update_message" => $validatedData["reason"],
                     "date" => $validatedData["resolved_time"],
                     "content_id" => $validatedData["content_id"],
@@ -86,5 +101,19 @@ class TrackController extends Controller
         } else {
             return back()->with("failed", $response["sqlMessage"]);            
         }
+    }
+
+    public function getPic() {
+        $response = Http::get("10.194.2.17:3305/content?groupBy=pic");
+        $response = $response->json($key = null, $default = null);
+        
+        return response()->json($response);
+    }
+
+    public function getServices($pic) {
+        $response = Http::get("10.194.2.17:3305/content?pic=".$pic."&groupBy=service");
+        $response = $response->json($key = null, $default = null);
+
+        return response()->json($response);
     }
 }

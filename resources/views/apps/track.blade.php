@@ -6,22 +6,60 @@
 <div class="container w-1/2 h-full mx-auto space-y-10 pt-36 pb-28">
     <section>
         <form action="/track" method="get" class="flex flex-col w-full h-full">
-            <div class="w-full h-full p-6 space-y-6 bg-white border rounded-xl border-slate-200">
-                <div>
-                    <h3 class="text-lg font-medium">Pencarian</h3>
-                    <p class="text-sm text-slate-600">Lacak progress bugs/issue berdasarkan Kode Referensi</p>
-                </div>
-                <div>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                            </svg>
-                        </div>
-                        <input type="text" name="search" id="default-search" value="{{request()->search}}" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-200 rounded-lg input bg-gray-50" placeholder="Masukkan Kode Referensi disini" required>
-                        <button type="submit" class="text-white absolute right-2.5 bottom-1.5 bg-primary hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+            <div class="w-full h-full p-6 space-y-10 bg-white border rounded-xl border-slate-200">
+                <div class="flex justify-between h-full space-x-4">
+                    <div class="flex flex-col justify-between space-y-1">
+                        <h3 class="text-xl font-semibold">Pencarian</h3>
+                        <p class="max-w-sm text-sm text-slate-600">Lacak progress bugs/issue berdasarkan opsi pencarian yang dipilih disamping</p>
+                    </div>
+                    <div class="flex flex-col justify-between h-full">
+                        <label class="label">
+                            <span class="label-text-alt">Cari berdasarkan</span>
+                        </label>
+                        <select class="font-normal select" id="search-by">
+                            <option class="font-normal" value="1">Kode Referensi</option>
+                            <option class="font-normal" value="2" {{request()->input('pic') ? 'Selected' : ''}}>Nama PIC</option>
+                        </select> 
                     </div>
                 </div>
+                <form action="/track" method="get">
+                    <div class="w-full space-y-6" id="search-container">
+                        @if(request()->has("pic"))
+                        <div class="w-full form-control">
+                            <label class="label">
+                                <span class="font-semibold label-text">PIC</span>
+                            </label>
+                            <select class="font-normal select select-bordered" name="pic" id="pic" onchange="findServices()">
+                                <option disabled selected>Pilih salah satu PIC</option>
+                                @for($k =0; $k < count($pic); $k++)
+                                <option value="{{$pic[$k]}}" {{request()->input('pic') == $pic[$k] ? 'Selected' : ''}}>{{$pic[$k]}}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="w-full form-control">
+                            <label class="label">
+                                <span class="font-semibold label-text">Layanan</span>
+                            </label>
+                            <select class="font-normal select select-bordered" name="service" id="services">
+                                <option value="request()->input('service')" selected>{{request()->input('service')}}</option>
+                            </select>
+                        </div>
+                        <div class="pt-6">
+                            <button type="submit" class="w-full text-white rounded-full btn btn-primary">Search</button>
+                        </div>
+                        @else
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                </svg>
+                            </div>
+                            <input type="text" name="search" id="default-search" value="{{request()->search}}" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-200 rounded-lg input bg-gray-50" placeholder="Masukkan Kode Referensi disini" required>
+                            <button type="submit" class="text-white absolute right-2.5 bottom-1.5 bg-primary hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+                        </div>
+                        @endif
+                    </div>
+                </form>
             </div>
         </form>
     </section>
@@ -185,6 +223,64 @@
     </section>
 
     @endif
+
+    @if($ticket_list != null)
+    <section class="flex flex-col w-full h-full px-6">
+        <h1 class="text-2xl font-semibold">Result</h1>
+    </section>
+    
+    <div class="overflow-x-auto bg-white rounded-xl">
+        <table class="table">
+            <!-- head -->
+            <thead>
+                <tr>
+                    <th>Deskripsi Masalah</th>
+                    <th>Tanggal & Waktu</th>
+                    <th>Impact</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for($i=0; $i < count($ticket_list); $i++)
+                <tr class="group">
+                    <td>
+                        <div class="line-clamp-2 group-hover:line-clamp-none">
+                            {{$ticket_list[$i]["detail"]}}
+                        </div>
+                    </td>
+                    <td>
+                        {{date('Y-m-d', strtotime($ticket_list[$i]["start_date"]))}}
+                    </td>
+                    <td>
+                        @switch($ticket_list[$i]["impact"])
+                            @case($ticket_list[$i]["impact"] == 1)
+                                <div class="px-4 text-white bg-blue-600 border-0 badge">
+                                Low
+                                </div>
+                                @break
+                            @case($ticket_list[$i]["impact"] == 2)
+                                <div class="px-4 text-white bg-yellow-600 border-0 badge">
+                                Medium
+                                </div>
+                                @break
+                            @case($ticket_list[$i]["impact"] == 3)
+                                <div class="px-4 text-white bg-red-600 border-0 badge">
+                                High
+                                </div>
+                                @break
+
+                        @endswitch
+                    </td>
+                    <th>
+                        <a href="/track?search={{$ticket_list[$i]['reference_code']}}" target="_blank" class="btn btn-ghost btn-xs">details</a>
+                    </th>
+                </tr>
+                @endfor
+            </tbody>
+        </table>
+    </div>
+    @endif
+
 </div>
 
 @if($result != null)
@@ -196,4 +292,103 @@
     @include("elements/update-success-notification");
 @endif
 
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+<script>
+    let searchContainer = document.getElementById("search-container");
+
+    $(document).ready(function() {
+    $('#search-by').change(function() {
+        let searchBy = $(this).val();
+
+        switch(true){
+            case (searchBy == 1):
+                searchContainer.innerHTML = `
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                        </div>
+                        <input type="text" name="search" id="default-search" value="{{request()->search}}" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-200 rounded-lg input bg-gray-50" placeholder="Masukkan Kode Referensi disini" required>
+                        <button type="submit" class="text-white absolute right-2.5 bottom-1.5 bg-primary hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+                    </div>
+                `;
+                console.log(searchBy);
+                break;
+            case (searchBy == 2):
+                searchContainer.innerHTML = `
+                    <div class="w-full form-control">
+                        <label class="label">
+                            <span class="font-semibold label-text">PIC</span>
+                        </label>
+                        <select class="font-normal select select-bordered" name="pic" id="pic" onchange="findServices()">
+                            <option disabled selected>Pilih salah satu PIC</option>
+                            <option>Star Wars</option>
+                            <option>Harry Potter</option>
+                            <option>Lord of the Rings</option>
+                            <option>Planet of the Apes</option>
+                            <option>Star Trek</option>
+                        </select>
+                    </div>
+                    <div class="w-full form-control">
+                        <label class="label">
+                            <span class="font-semibold label-text">Layanan</span>
+                        </label>
+                        <select class="font-normal select select-bordered" name="service" id="services">
+                            <option disabled selected>Pilih salah satu layanan</option>
+                            <option>Star Wars</option>
+                            <option>Harry Potter</option>
+                            <option>Lord of the Rings</option>
+                            <option>Planet of the Apes</option>
+                            <option>Star Trek</option>
+                        </select>
+                    </div>
+                    <div class="pt-6">
+                        <button type="submit" class="w-full text-white rounded-full btn btn-primary">Search</button>
+                    </div>
+                `;
+
+                $.ajax({
+                url: '/get-pic',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                        $('#pic').empty();
+                        $('#pic').append('<option value="" selected disabled>Pilih salah satu</option>');
+                        $.each(data, function(key, value) {
+                            $('#pic').append('<option value="'+ value +'">'+ value +'</option>');
+                        });
+                        console.log(data);
+                    }
+                });
+
+                console.log(searchBy);
+                break;
+        }
+        
+        });
+    });
+</script>
+
+<script>
+    function findServices() {
+        let pic = document.getElementById("pic");
+        let picName = pic.value;
+        
+        $.ajax({
+        url: '/get-services/' + picName,
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+                $('#services').empty();
+                $('#services').append('<option value="" selected disabled>Pilih salah satu</option>');
+                $.each(data, function(key, value) {
+                    $('#services').append('<option value="'+ value +'">'+ value +'</option>');
+                });
+                console.log(data);
+            }
+        });
+    }
+</script>
 @endsection

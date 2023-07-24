@@ -17,7 +17,7 @@
             <div class="mb-16 space-y-6">
                 <div class="w-full h-full p-6 space-y-6 bg-white border rounded-xl border-slate-200">
                     <div>
-                        <h3 class="text-lg font-medium">Tanggal dan Waktu Mulai Masalah <span class="text-sm text-slate-600">(Opsional)</span></h3>
+                        <h3 class="text-lg font-medium">Tanggal dan Waktu Mulai Masalah <span class="text-sm text-slate-600">(Opsional akan otomatis terisi sistem)</span></h3>
                         <p class="text-sm text-slate-600">Masukkan tanggal dan waktu ketika masalah dialami</p>
                     </div>
                     <div>

@@ -3,20 +3,20 @@
 
 {{-- Content --}}
 @section('content')
-<div class="container w-1/2 h-full mx-auto space-y-10 pt-36 pb-28">
+<div class="container w-[90%] h-full mx-auto space-y-10 sm:w-4/5 md:w-3/5 lg:w-1/2 pt-36 pb-28">
     <section>
         <form action="/track" method="get" class="flex flex-col w-full h-full">
             <div class="w-full h-full p-6 space-y-10 bg-white border rounded-xl border-slate-200">
-                <div class="flex justify-between h-full space-x-4">
+                <div class="flex flex-col justify-between h-full space-y-2 sm:space-x-4 sm:flex-row">
                     <div class="flex flex-col justify-between space-y-1">
                         <h3 class="text-xl font-semibold">Pencarian</h3>
-                        <p class="max-w-sm text-sm text-slate-600">Lacak progress bugs/issue berdasarkan opsi pencarian yang dipilih disamping</p>
+                        <p class="max-w-sm text-xs sm:text-sm text-slate-600">Lacak progress bugs/issue berdasarkan opsi pencarian yang dipilih</p>
                     </div>
                     <div class="flex flex-col justify-between h-full">
                         <label class="label">
                             <span class="label-text-alt">Cari berdasarkan</span>
                         </label>
-                        <select class="font-normal select" id="search-by">
+                        <select class="font-normal select select-sm sm:select-md" id="search-by">
                             <option class="font-normal" value="1">Kode Referensi</option>
                             <option class="font-normal" value="2" {{request()->input('pic') ? 'Selected' : ''}}>Nama PIC</option>
                         </select> 
@@ -54,7 +54,7 @@
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                 </svg>
                             </div>
-                            <input type="text" name="search" id="default-search" value="{{request()->search}}" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-200 rounded-lg input bg-gray-50" placeholder="Masukkan Kode Referensi disini" required>
+                            <input type="text" name="search" id="default-search" value="{{request()->search}}" class="block w-full p-4 pl-10 text-xs text-gray-900 border border-gray-200 rounded-lg sm:text-sm input bg-gray-50" placeholder="Masukkan Kode Referensi" required>
                             <button type="submit" class="text-white absolute right-2.5 bottom-1.5 bg-primary hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
                         </div>
                         @endif

@@ -4,11 +4,11 @@
 {{-- Content --}}
 @section('content')
 
-<div class="container w-1/2 h-full mx-auto space-y-10 pb-28 pt-36">
+<div class="container w-[90%] h-full mx-auto space-y-10 sm:w-4/5 md:w-3/5 lg:w-1/2 pb-28 pt-36">
 
     <section class="flex flex-col w-full h-full px-6">
-        <h1 class="text-2xl font-bold">We'd Love to Hear!</h1>
-        <p class="font-medium text-slate-600">Share Feedback on Bugs or Issues using our Online Form below.</p>
+        <h1 class="text-xl font-bold md:text-2xl">We'd Love to Hear!</h1>
+        <p class="text-sm font-medium md:text-base text-slate-600">Share Feedback on Bugs or Issues using our Online Form below.</p>
     </section>
 
     <section>
@@ -17,8 +17,8 @@
             <div class="mb-16 space-y-6">
                 <div class="w-full h-full p-6 space-y-6 bg-white border rounded-xl border-slate-200">
                     <div>
-                        <h3 class="text-lg font-medium">Tanggal dan Waktu Mulai Masalah <span class="text-sm text-slate-600">(Opsional akan otomatis terisi sistem)</span></h3>
-                        <p class="text-sm text-slate-600">Masukkan tanggal dan waktu ketika masalah dialami</p>
+                        <h3 class="text-base font-medium md:text-lg">Tanggal dan Waktu Mulai Masalah <span class="text-sm text-slate-600">(Opsional akan otomatis terisi sistem)</span></h3>
+                        <p class="text-xs md:text-sm text-slate-600">Masukkan tanggal dan waktu ketika masalah dialami</p>
                     </div>
                     <div>
                         <input name="start_date" type="datetime-local" class="w-full input" />
@@ -26,8 +26,8 @@
                 </div>
                 <div class="w-full h-full p-6 space-y-6 bg-white border rounded-xl border-slate-200">
                     <div>
-                        <h3 class="text-lg font-medium">Layanan Terkait <span class="text-sm text-slate-600">(Opsional)</span></h3>
-                        <p class="text-sm text-slate-600">Pilih layanan yang terkena masalah</p>
+                        <h3 class="text-base font-medium md:text-lg">Layanan Terkait <span class="text-sm text-slate-600">(Opsional)</span></h3>
+                        <p class="text-xs md:text-sm text-slate-600">Pilih layanan yang terkena masalah</p>
                     </div>
                     <div>
                     <input type="hidden" name="service" value="not defined">
@@ -52,8 +52,8 @@
                 </div>
                 <div class="w-full h-full p-6 space-y-6 bg-white border rounded-xl border-slate-200">
                     <div>
-                        <h3 class="text-lg font-medium">Platform <span class="text-sm text-slate-600">(Opsional)</span></h3>
-                        <p class="text-sm text-slate-600">Tentukan platform atau sistem di mana masalah terjadi</p>
+                        <h3 class="text-base font-medium md:text-lg">Platform <span class="text-sm text-slate-600">(Opsional)</span></h3>
+                        <p class="text-xs md:text-sm text-slate-600">Tentukan platform atau sistem di mana masalah terjadi</p>
                     </div>
                     <div>
                         <input name="platform" type="text" placeholder="Type here" class="w-full input" />
@@ -61,8 +61,8 @@
                 </div>
                 <div class="w-full h-full p-6 space-y-6 bg-white border rounded-xl border-slate-200">
                     <div>
-                        <h3 class="text-lg font-medium">Link Platform <span class="text-sm text-slate-600">(Opsional)</span></h3>
-                        <p class="text-sm text-slate-600">Masukkan tautan atau URL terkait dengan platform yang terkena masalah</p>
+                        <h3 class="text-base font-medium md:text-lg">Link Platform <span class="text-sm text-slate-600">(Opsional)</span></h3>
+                        <p class="text-xs md:text-sm text-slate-600">Masukkan tautan atau URL terkait dengan platform yang terkena masalah</p>
                     </div>
                     <div>
                         <input name="platform_link" type="text" placeholder="Type here" class="w-full input" />
@@ -70,8 +70,8 @@
                 </div>
                 <div class="w-full h-full p-6 space-y-6 bg-white border rounded-xl border-slate-200">
                     <div>
-                        <h3 class="text-lg font-medium">Channel/Saluran <span class="text-sm text-slate-600">(Opsional)</span></h3>
-                        <p class="text-sm text-slate-600">Tentukan platform atau sistem di mana masalah terjadi</p>
+                        <h3 class="text-base font-medium md:text-lg">Channel/Saluran <span class="text-sm text-slate-600">(Opsional)</span></h3>
+                        <p class="text-xs md:text-sm text-slate-600">Tentukan platform atau sistem di mana masalah terjadi</p>
                     </div>
                     <div>
                     <input type="hidden" name="channel" value="">
@@ -87,8 +87,8 @@
                 </div>
                 <div class="w-full h-full p-6 space-y-6 bg-white border rounded-xl border-slate-200">
                     <div>
-                        <h3 class="text-lg font-medium">Deskripsi Masalah <span class="text-sm text-red-700">*</span></h3>
-                        <p class="text-sm text-slate-600">Berikan deskripsi detail tentang masalah</p>
+                        <h3 class="text-base font-medium md:text-lg">Deskripsi Masalah <span class="text-sm text-red-700">*</span></h3>
+                        <p class="text-xs md:text-sm text-slate-600">Berikan deskripsi detail tentang masalah</p>
                     </div>
                     <div>
                         <textarea name="detail" class="w-full textarea h-60" placeholder="Tulis deskripsi disini..." required></textarea>
@@ -96,8 +96,8 @@
                 </div>
                 <div class="w-full h-full p-6 space-y-6 bg-white border rounded-xl border-slate-200">
                     <div>
-                        <h3 class="text-lg font-medium">Impact/Dampak <span class="text-sm text-red-700">*</span></h3>
-                        <p class="text-sm text-slate-600">Tentukan tingkat keparahan atau dampak masalah</p>
+                        <h3 class="text-base font-medium md:text-lg">Impact/Dampak <span class="text-sm text-red-700">*</span></h3>
+                        <p class="text-xs md:text-sm text-slate-600">Tentukan tingkat keparahan atau dampak masalah</p>
                     </div>
                     <div>
                         <select name="impact" class="w-full font-normal select" required>
@@ -110,8 +110,8 @@
                 </div>
                 <div class="w-full h-full p-6 space-y-6 bg-white border rounded-xl border-slate-200">
                     <div>
-                        <h3 class="text-lg font-medium">Ticket ID <span class="text-sm text-slate-600">(Opsional)</span></h3>
-                        <p class="text-sm text-slate-600">Jika tersedia, berikan ID tiket yang terkait dengan masalah</p>
+                        <h3 class="text-base font-medium md:text-lg">Ticket ID <span class="text-sm text-slate-600">(Opsional)</span></h3>
+                        <p class="text-xs md:text-sm text-slate-600">Jika tersedia, berikan ID tiket yang terkait dengan masalah</p>
                     </div>
                     <div>
                         <input name="ticket_id" type="text" placeholder="Masukan ID Tiket disini..." class="w-full input" />
@@ -119,8 +119,8 @@
                 </div>
                 <div class="w-full h-full p-6 space-y-6 bg-white border rounded-xl border-slate-200">
                     <div>
-                        <h3 class="text-lg font-medium">Penanggung Jawab/PIC <span class="text-sm text-red-700">*</span></h3>
-                        <p class="text-sm text-slate-600">Masukkan nama orang yang bertanggung jawab atas penanganan masalah</p>
+                        <h3 class="text-base font-medium md:text-lg">Penanggung Jawab/PIC <span class="text-sm text-red-700">*</span></h3>
+                        <p class="text-xs md:text-sm text-slate-600">Masukkan nama orang yang bertanggung jawab atas penanganan masalah</p>
                     </div>
                     <div>
                         <input name="pic" type="text" placeholder="Masukan nama disini..." class="w-full input" required />

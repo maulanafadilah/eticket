@@ -72,9 +72,9 @@
     <section class="space-y-5">
         <div class="w-full h-full p-6 mb-6 space-y-6 bg-white border rounded-xl border-slate-200">
             <div>
-                <h3 class="text-lg">ID: <span class="font-semibold">{{$result[0]["reference_code"]}}</span></h3>
+                <h3 class="text-lg">Kode Referensi: <span class="font-semibold">{{$result[0]["reference_code"]}}</span></h3>
             </div>
-            <div class="flex justify-between w-full space-x-2">
+            <div class="flex flex-col justify-between w-full space-y-6 sm:space-y-0 sm:space-x-2 sm:flex-row">
                 <div class="flex flex-col w-full space-y-6">
                     <div class="flex items-center w-full space-x-4">
                         <div class="flex items-center justify-center p-2 bg-blue-200 rounded-xl">
@@ -112,6 +112,17 @@
                             <p class="text-base font-medium text-gray-700">{{$result[0]["platform_link"] ? $result[0]["platform_link"] : '-'}}</p>
                         </div>
                     </div>
+                    @if($result[0]["resolved_time"] != null)
+                    <div class="flex items-center w-full space-x-4">
+                        <div class="flex items-center justify-center p-2 bg-blue-200 rounded-xl">
+                            <span class="material-symbols-rounded text-primary">event_available</span>
+                        </div>
+                        <div class="w-full">
+                            <p class="text-xs">Tiket Resolved/Closed</p>
+                            <p class="text-base font-medium text-gray-700">{{date('Y:m:d H:i:s', strtotime($result[0]["resolved_time"]))}}</p>
+                        </div>
+                    </div>
+                    @endif
                 </div>
                 <div class="flex flex-col w-full space-y-6">
                     <div class="flex items-center w-full space-x-4">
@@ -129,7 +140,19 @@
                         </div>
                         <div class="w-full">
                             <p class="text-xs">Impact</p>
-                            <p class="text-base font-medium text-gray-700">{{$result[0]["impact"]}}</p>
+                            <p class="text-base font-medium text-gray-700">
+                                @switch(true)
+                                    @case($result[0]["impact"] == 1)
+                                        Low
+                                        @break
+                                    @case($result[0]["impact"] == 2)
+                                        Medium
+                                        @break
+                                    @case($result[0]["impact"] == 3)
+                                        High
+                                        @break
+                                @endswitch
+                            </p>
                         </div>
                     </div>
                     <div class="flex items-center w-full space-x-4">
@@ -195,7 +218,7 @@
                     <div class="space-y-20 w-fit">
                         <div class="w-fit">
                             <p class="text-sm">{{date('Y-m-d', strtotime($histories[$i]["date"]))}}</p>
-                            <p class="text-lg font-medium">{{date('H:i', strtotime($histories[$i]["date"]))}}</p>
+                            <p class="text-base font-medium sm:text-lg">{{date('H:i', strtotime($histories[$i]["date"]))}}</p>
                         </div>
                     </div>
                     <div class="w-[10%] flex flex-col items-center space-y-1">
@@ -206,21 +229,25 @@
                     </div>
                     <div class="w-[70%] space-y-20">
                         <div class="w-full">
-                            <p class="text-sm">Pesan:</p>
-                            <p class="text-lg font-medium">{{$histories[$i]["update_message"]}}</p>
+                            <p class="text-sm"> {{$histories[$i]["update_type"] == 2 ? 'Pesan closed tiket:' : 'Pesan:'}}</p>
+                            <p class="text-base font-medium sm:text-lg">{{$histories[$i]["update_message"]}}</p>
                         </div>
                     </div>
                 </div>
                 @endfor
                 @endif
             </div>
+            @if($result[0]["resolved_time"] == null)
             <button class="w-full rounded-full btn btn-primary" id="update-btn">Update</button>
+            @endif
         </div>
     </section>
 
+    @if($result[0]["resolved_time"] == null)
     <section>
-        <button class="w-full rounded-full btn btn-primary btn-outline" id="resolved-btn">Tutup/Resolved</button>
+        <button class="w-full rounded-xl btn btn-primary btn-outline" id="resolved-btn">Tutup/Resolved</button>
     </section>
+    @endif
 
     @endif
 

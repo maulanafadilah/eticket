@@ -5,8 +5,8 @@
     <span class="text-sm font-semibold md:text-lg text-accent">i-Ticket</span>
   </a>
   <div class="flex space-x-2">
-      <a href="/track" class="btn btn-sm sm:btn-md capitalize px-4 sm:px-6 {{ (request()->is('track*')) ? 'btn-accent rounded-full' : 'btn-ghost bg-base-200' }}">Track</a>
-      <a href="/" class="btn btn-sm sm:btn-md capitalize px-4 sm:px-6 {{ (request()->is('/')) ? 'btn-accent rounded-full' : 'btn-ghost bg-base-200' }}">Form</a>
+      <a href="/track" class="btn btn-md capitalize px-4 sm:px-6 {{ (request()->is('track*')) ? 'btn-accent rounded-full' : 'btn-ghost bg-base-200' }}">Track</a>
+      <a href="/" class="btn btn-md capitalize px-4 sm:px-6 {{ (request()->is('/')) ? 'btn-accent rounded-full' : 'btn-ghost bg-base-200' }}">Form</a>
   </div>
   </div>
 </nav>

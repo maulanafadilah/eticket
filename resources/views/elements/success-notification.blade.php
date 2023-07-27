@@ -13,9 +13,9 @@
             </div>
             <div class="flex flex-col items-start w-full space-y-2">
                 <p class="text-sm font-medium text-gray-500">Share link</p>
-                <div class="flex items-center w-full space-x-2">
+                <div class="flex flex-col items-center w-full space-y-2 sm:space-y-0 sm:space-x-2 sm:flex-row">
                     <p class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg" id="link">127.0.0.1:8000/track?search={{ session('success') }}</p>
-                    <button class="text-white capitalize rounded-full btn btn-primary" onclick="copyLink()" id="btn-copy">
+                    <button class="w-full text-white capitalize rounded-full sm:w-fit btn btn-primary" onclick="copyLink()" id="btn-copy">
                         <span class="text-base material-symbols-rounded" id="icon-copy">content_copy</span>
                         <p id="text-copy">Copy & Open link</p>
                     </button>

@@ -30,7 +30,7 @@
                         <p class="text-xs md:text-sm text-slate-600">Pilih layanan yang terkena masalah</p>
                     </div>
                     <div>
-                    <input type="hidden" name="service" value="not defined">
+                    <input type="hidden" name="service" value="Semua Layanan">
                     <select name="service" class="w-full font-normal select">
                         <option disabled selected>Pilih salah satu...</option>
                         <option value="DMM">DMM</option>

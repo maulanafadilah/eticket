@@ -43,7 +43,7 @@
         copyBtn.classList.add("btn-outline");
         copyBtn.classList.add("btn-success");
 
-        copyText.innerText = "Link Copied!"
+        copyText.innerText = "Link Opened!"
 
         // Prepend "http://" or "https://" to make it an absolute URL
         link = "http://" + link;

@@ -43,7 +43,7 @@ class BugsController extends Controller
 
         $validatedData["reference_code"] = strtoupper(($validatedData["service"] == 'Semua Layanan' ? 'ALL' : explode(' ', $validatedData["service"])[0]).'-'.$validatedData["pic"].'-'.Str::random(3));
 
-        $response = Http::post('36.93.66.164:3305/content', [
+        $response = Http::post('localhost:3305/content', [
             "start_date" => $validatedData["start_date"],
             "service" => $validatedData["service"],
             "platform" => $validatedData["platform"],

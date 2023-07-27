@@ -14,10 +14,10 @@
             <div class="flex flex-col items-start w-full space-y-2">
                 <p class="text-sm font-medium text-gray-500">Share link</p>
                 <div class="flex flex-col items-center w-full space-y-2 sm:space-y-0 sm:space-x-2 sm:flex-row">
-                    <p class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg" id="link">http://36.93.66.164/track?search={{ session('success') }}</p>
+                    <p class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg" id="link">36.93.66.164/track?search={{ session('success') }}</p>
                     <button class="w-full text-white capitalize rounded-full sm:w-fit btn btn-primary" onclick="copyLink()" id="btn-copy">
-                        <span class="text-base material-symbols-rounded" id="icon-copy">content_copy</span>
-                        <p id="text-copy">Copy & Open link</p>
+                        <span class="text-base material-symbols-rounded" id="icon-copy">open_in_new</span>
+                        <p id="text-copy">Open link</p>
                     </button>
                 </div>
             </div>            
@@ -33,7 +33,7 @@
 
     function copyLink(){    
         // Copy the text inside the text field
-        navigator.clipboard.writeText(link);
+        // navigator.clipboard.writeText(link);
 
         copyBtn.classList.remove("text-white");
         copyBtn.classList.remove("btn-primary");

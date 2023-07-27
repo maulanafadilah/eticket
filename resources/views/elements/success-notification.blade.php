@@ -12,9 +12,9 @@
                 <p class="text-sm text-center text-gray-500">Copy this link below to track your recorded issue.</p>
             </div>
             <div class="flex flex-col items-start w-full space-y-2">
-                <p class="text-sm font-medium text-gray-500">Share link</p>
+                <p class="text-sm font-medium text-gray-500">Kode Referensi</p>
                 <div class="flex flex-col items-center w-full space-y-2 sm:space-y-0 sm:space-x-2 sm:flex-row">
-                    <p class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg" id="link">36.93.66.164/track?search={{ session('success') }}</p>
+                    <p class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg" id="link">{{ session('success') }}</p>
                     <button class="w-full text-white capitalize rounded-full sm:w-fit btn btn-primary" onclick="copyLink()" id="btn-copy">
                         <span class="text-base material-symbols-rounded" id="icon-copy">open_in_new</span>
                         <p id="text-copy">Open link</p>
@@ -46,7 +46,7 @@
         copyText.innerText = "Link Opened!"
 
         // Prepend "http://" or "https://" to make it an absolute URL
-        link = "http://" + link;
+        link = "http://36.93.66.164/track?search=" + link;
         
         window.open(link);
     }

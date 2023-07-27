@@ -29,7 +29,7 @@
                             <label class="label">
                                 <span class="font-semibold label-text">PIC</span>
                             </label>
-                            <select class="font-normal select select-bordered" name="pic" id="pic" onchange="findServices()">
+                            <select class="font-normal select select-bordered" name="pic" id="pic" onchange="findServices()" required>
                                 <option disabled selected>Pilih salah satu PIC</option>
                                 @for($k =0; $k < count($pic); $k++)
                                 <option value="{{$pic[$k]}}" {{request()->input('pic') == $pic[$k] ? 'Selected' : ''}}>{{$pic[$k]}}</option>
@@ -40,7 +40,7 @@
                             <label class="label">
                                 <span class="font-semibold label-text">Layanan</span>
                             </label>
-                            <select class="font-normal select select-bordered" name="service" id="services">
+                            <select class="font-normal select select-bordered" name="service" id="services" required>
                                 <option value="request()->input('service')" selected>{{request()->input('service')}}</option>
                             </select>
                         </div>

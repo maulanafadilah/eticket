@@ -349,7 +349,7 @@
                         <label class="label">
                             <span class="font-semibold label-text">PIC</span>
                         </label>
-                        <select class="font-normal select select-bordered" name="pic" id="pic" onchange="findServices()">
+                        <select class="font-normal select select-bordered" name="pic" id="pic" onchange="findServices()" required>
                             <option disabled selected>Pilih salah satu PIC</option>
                             <option>Star Wars</option>
                             <option>Harry Potter</option>
@@ -362,7 +362,7 @@
                         <label class="label">
                             <span class="font-semibold label-text">Layanan</span>
                         </label>
-                        <select class="font-normal select select-bordered" name="service" id="services">
+                        <select class="font-normal select select-bordered" name="service" id="services" required>
                             <option disabled selected>Pilih salah satu layanan</option>
                             <option>Star Wars</option>
                             <option>Harry Potter</option>

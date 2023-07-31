@@ -117,10 +117,4 @@ class TrackController extends Controller
 
         return response()->json($response);
     }
-
-    public function smartway() {
-        $classes = Classe::all();
-
-        return $classes;
-    }
 }

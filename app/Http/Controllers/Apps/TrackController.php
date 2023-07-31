@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classe;
 use GuzzleHttp\RetryMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -115,5 +116,11 @@ class TrackController extends Controller
         $response = $response->json($key = null, $default = null);
 
         return response()->json($response);
+    }
+
+    public function smartway() {
+        $classes = Classe::all();
+
+        return $classes;
     }
 }

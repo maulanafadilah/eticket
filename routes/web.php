@@ -20,6 +20,7 @@ Route::resource("/track", TrackController::class);
 
 Route::get("/get-pic", [TrackController::class, "getPic"]);
 Route::get("/get-services/{id}", [TrackController::class, "getServices"]);
+Route::get("/smartway", [TrackController::class, "smartway"]);
 // Route::get('/track', function () {
 //     return view('apps.track');
 // });

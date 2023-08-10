@@ -26,22 +26,22 @@ class TrackController extends Controller
 
         switch($request){
             case $request->has("search"):
-                $result = Http::get("localhost:3305/content?reference_code=".$request->search);
-                $histories = Http::get("localhost:3305/content_histories?filter=".$result[0]["id"]."&sortBy=date")->json();
+                $result = Http::get("localhost:3310/content?reference_code=".$request->search);
+                $histories = Http::get("localhost:3310/content_histories?filter=".$result[0]["id"]."&sortBy=date")->json();
                 break;
             case $request->has("pic") && $request->has("service"):
-                $ticket_list = Http::get("localhost:3305/content?pic=".$request->pic."&service=".$request->service);
+                $ticket_list = Http::get("localhost:3310/content?pic=".$request->pic."&service=".$request->service);
                 $ticket_list = $ticket_list->json($key = null, $default = null);
 
-                $pic = Http::get("localhost:3305/content?groupBy=pic");
+                $pic = Http::get("localhost:3310/content?groupBy=pic");
                 $pic = $pic->json($key = null, $default = null);
                 break;
         }
         
         // if($request->has("search")){
-        //     $result = Http::get("localhost:3305/content?filter=".$request->search);
+        //     $result = Http::get("localhost:3310/content?filter=".$request->search);
 
-        //     $histories = Http::get("localhost:3305/content_histories?filter=".$result[0]["id"]."&sortBy=date")->json();
+        //     $histories = Http::get("localhost:3310/content_histories?filter=".$result[0]["id"]."&sortBy=date")->json();
         // }
 
         return view("apps/track", compact("page_title", "page_description", "result", "histories", "ticket_list", "pic"), ["search" => $request->search]);
@@ -60,7 +60,7 @@ class TrackController extends Controller
                 "update_type" => "required"
             ]);
     
-            $response = Http::post('localhost:3305/content_histories', [
+            $response = Http::post('localhost:3310/content_histories', [
                 "update_message" => $validatedData["update_message"],
                 "date" => $validatedData["date"],
                 "content_id" => $validatedData["content_id"],
@@ -77,7 +77,7 @@ class TrackController extends Controller
 
             // return $validatedData;
 
-            $update = Http::put('localhost:3305/content/'.$validatedData["content_id"], [
+            $update = Http::put('localhost:3310/content/'.$validatedData["content_id"], [
                 "resolved_time" => $validatedData["resolved_time"],
                 "resolved_by" => $validatedData["resolved_by"],
                 "reason" => $validatedData["reason"],
@@ -86,7 +86,7 @@ class TrackController extends Controller
             // return $update;
 
             if($update["message"] == "success"){
-                $response = Http::post('localhost:3305/content_histories', [
+                $response = Http::post('localhost:3310/content_histories', [
                     "update_message" => $validatedData["reason"],
                     "date" => $validatedData["resolved_time"],
                     "content_id" => $validatedData["content_id"],
@@ -105,14 +105,14 @@ class TrackController extends Controller
     }
 
     public function getPic() {
-        $response = Http::get("localhost:3305/content?groupBy=pic");
+        $response = Http::get("localhost:3310/content?groupBy=pic");
         $response = $response->json($key = null, $default = null);
         
         return response()->json($response);
     }
 
     public function getServices($pic) {
-        $response = Http::get("localhost:3305/content?pic=".$pic."&groupBy=service");
+        $response = Http::get("localhost:3310/content?pic=".$pic."&groupBy=service");
         $response = $response->json($key = null, $default = null);
 
         return response()->json($response);
